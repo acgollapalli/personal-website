@@ -1,6 +1,6 @@
-import { getBlogPosts } from './blog/utils'
+import { getBlogPosts } from '@/lib/blog'
+import { baseUrl } from '@/lib/contsants'
 
-export const baseUrl = 'http://localhost:3000'
 
 // FIXME: this needs to be possibly dynamic?
 // but only if the blogs become dynamic. If they

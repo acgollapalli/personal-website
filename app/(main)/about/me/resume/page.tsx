@@ -6,7 +6,7 @@ import { ContactHeader } from "@/components/resume/contact-header"
 
 const Resume = () => {
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="p-8 container mx-auto py-8 space-y-8">
       {/* Header */}
       <ContactHeader/>
 
@@ -17,7 +17,7 @@ const Resume = () => {
         </CardHeader>
         <CardContent>
           <p className="leading-7">
-            Experienced Software Engineer looking to solve the hardest problems in edge computing, high-throughput workloads,
+            Experienced Software Engineer looking to solve the hardest problems in edge computing,
             ship the best products, and build the most value.
           </p>
         </CardContent>

@@ -1,5 +1,5 @@
-import { baseUrl } from '../../sitemap'
-import { getBlogPosts } from '../utils'
+import { baseUrl } from '@/lib/constants'
+import { getBlogPosts } from '@/lib/blog'
 
 export async function GET() {
   let allBlogs = await getBlogPosts()

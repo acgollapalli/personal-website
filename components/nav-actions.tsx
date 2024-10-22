@@ -11,7 +11,6 @@ import {
   FileText,
   GalleryVerticalEnd,
   LineChart,
-  Link,
   MoreHorizontal,
   Settings2,
   Trash,
@@ -20,7 +19,9 @@ import {
 } from "lucide-react"
 import { MoonIcon,
          SunIcon,
-         StarIcon
+         StarIcon,
+         LinkIcon
+
 } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 
@@ -39,6 +40,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Link from "next/link"
 
 const data = [
   [
@@ -54,7 +56,7 @@ const data = [
   [
     {
       label: "Copy Link",
-      icon: Link,
+      icon: LinkIcon,
     },
     {
       label: "Duplicate",
@@ -103,7 +105,7 @@ const data = [
   ],
 ]
 
-export function NavActions() {
+export function NavActions(){
   const [isOpen, setIsOpen] = React.useState(false)
 
   const { setTheme, theme } = useTheme()
@@ -129,9 +131,11 @@ export function NavActions() {
                 <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <span className="sr-only">Toggle theme</span>
             </Button>
+            <Link href="/blog/rss">
             <Button variant="ghost" size="icon" className="h-7 w-7" title="I should probably just start a substack!">
               <Rss /> {/* FIXME: linke to RSS feed here*/}
             </Button>
+            </Link>
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
