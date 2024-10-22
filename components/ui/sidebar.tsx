@@ -273,6 +273,7 @@ const SidebarTrigger = React.forwardRef<
       variant="ghost"
       size="icon"
       className={cn("h-7 w-7", className)}
+      hint="There's more to this site than meets the eye... well not MUCH more"
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()

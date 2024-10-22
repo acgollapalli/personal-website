@@ -1,7 +1,6 @@
 import * as React from "react"
 import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { Slot } from "@radix-ui/react-slot"
-import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 
@@ -46,7 +45,7 @@ const BreadcrumbLink = React.forwardRef<
     asChild?: boolean
   }
 >(({ asChild, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : Link
+  const Comp = asChild ? Slot : 'a'
 
   return (
     <Comp

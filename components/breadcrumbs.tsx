@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from "react"
 import { SlashIcon } from "@radix-ui/react-icons"
+import Link from "next/link"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,11 +14,11 @@ import {
 import { randomUUID } from 'crypto'
 
 function crumbwiper(accumulator, crumb) {
-    if (accumulator.length == 0) {
-        accumulator.push({
-            name: crumb,
-            link: "/" + crumb
-})
+  if (accumulator.length == 0) {
+    accumulator.push({
+        name: crumb,
+        link: "/" + crumb
+    })
     }
     else {
         accumulator.push({
@@ -45,8 +46,8 @@ function crumblingMyLife({link, name}) {
     }
     return (
                           <BreadcrumbItem key={link}>
-                    <BreadcrumbLink href={link}>
-                        {name}
+                    <BreadcrumbLink asChild>
+                        <Link href={link} passHref> {name} </Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
     )
@@ -69,7 +70,7 @@ export function BreadCrumbsFromPath() {
             <Breadcrumb>
           <BreadcrumbList>
             {
-                        breadcrumbs.map(crumblingMyLife)
+                breadcrumbs.map(crumblingMyLife)
 
 
             }

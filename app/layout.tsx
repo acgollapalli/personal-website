@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
+import "./effects.css"
 import "@/components/app-sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
 
