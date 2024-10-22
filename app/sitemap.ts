@@ -1,5 +1,5 @@
 import { getBlogPosts } from '@/lib/blog'
-import { baseUrl } from '@/lib/contsants'
+import { baseUrl } from '@/lib/constants'
 
 
 // FIXME: this needs to be possibly dynamic?

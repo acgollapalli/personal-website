@@ -1,6 +1,6 @@
 'use client'
 //import { useState, useEffect } from "react"
-import { useTypewriter } from "@/components/gollapalli/typewriter"
+import { useTypewriter } from "@/components/effects/typewriter"
 
 export const AboutMeHeader: React.FC = () => {
   const titles = ["About me", "Akshay Caleb Gollapalli"];

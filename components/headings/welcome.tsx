@@ -1,5 +1,5 @@
 'use client'
-import { useTypewriter } from "@/components/gollapalli/typewriter"
+import { useTypewriter } from "@/components/effects/typewriter"
 
 export function WelcomeHeader() {
     const titleStrings= [

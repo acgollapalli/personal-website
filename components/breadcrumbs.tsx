@@ -47,10 +47,10 @@ function crumblingMyLife({link, name}) {
     } else if (name == "root") {
         return (
             <BreadcrumbSeparator key={name}>
-                        <Link href={link} passHref>
-                                <SlashIcon/>
-                        </Link>
-                  </BreadcrumbSeparator>
+                <Link href={link} className="transition-colors hover:text-foreground">
+                    <SlashIcon/>
+                </Link>
+            </BreadcrumbSeparator>
         )
     }
     else {
