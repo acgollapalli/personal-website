@@ -11,9 +11,9 @@ import {
   BreadcrumbSeparator,
   BreadcrumbLink
 } from "@/components/ui/breadcrumb"
-import { randomUUID } from 'crypto'
+import { Button } from './ui/button'
 
-function crumbwiper(accumulator, crumb) {
+function crumbwiper(accumulator, crumb){
   if (accumulator.length == 0) {
     accumulator.push({
         name: crumb,
@@ -30,7 +30,8 @@ function crumbwiper(accumulator, crumb) {
 }
 
 function hackNSlash(acc, val) {
-    acc.push({name: val.link + "separator"})
+    if (acc.length == 0) acc.push({name: "root", link: "/"})
+    else acc.push({name: val.link + "separator"})
     acc.push(val)
     return acc
 }
@@ -43,14 +44,24 @@ function crumblingMyLife({link, name}) {
                   </BreadcrumbSeparator>
         )
 
+    } else if (name == "root") {
+        return (
+            <BreadcrumbSeparator key={name}>
+                        <Link href={link} passHref>
+                                <SlashIcon/>
+                        </Link>
+                  </BreadcrumbSeparator>
+        )
     }
-    return (
+    else {
+        return (
                           <BreadcrumbItem key={link}>
                     <BreadcrumbLink asChild>
                         <Link href={link} passHref> {name} </Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
-    )
+        )
+    }
 }
 
 export function BreadCrumbsFromPath() {

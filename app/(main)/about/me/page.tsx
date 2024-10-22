@@ -6,17 +6,15 @@ import { AboutMeHeader } from "@/components/headings/about-me";
 export default function AboutMe() {
   return (
         <>
-            <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-                <div className="p-8 md:pl-36 lg:pl-96 justify-self-left absolute">
+            <div className="grid grid-rows-[auto_1fr_auto] min-h-screen p-8">
+                <div className="w-full max-w-7xl mx-auto">
                     <AboutMeHeader/>
                 </div>
-                <main className="flex flex-col gap-8 row-start-2 items-start sm:items-start">
+                <main className="flex flex-col gap-8 py-16">
                         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                             Who am I?
                         </h3>
-                        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-                            Who am I?
-                        </h3>
+                        {/* add stuff here */}
 
                 </main>
                 <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">

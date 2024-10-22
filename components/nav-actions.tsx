@@ -19,8 +19,7 @@ import {
 } from "lucide-react"
 import { MoonIcon,
          SunIcon,
-         StarIcon,
-         LinkIcon
+         Link2Icon
 
 } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
@@ -56,7 +55,7 @@ const data = [
   [
     {
       label: "Copy Link",
-      icon: LinkIcon,
+      icon: Link2Icon,
     },
     {
       label: "Duplicate",

@@ -1,56 +1,51 @@
 'use client'
-import { useState, useEffect } from "react"
+//import { useState, useEffect } from "react"
 import { useTypewriter } from "@/components/gollapalli/typewriter"
 
-export function AboutMeHeader() {
-    const titleStrings = [
-        "About me",
-        "Akshay Caleb Gollapalli"
-     ]
+export const AboutMeHeader: React.FC = () => {
+  const titles = ["About me", "Akshay Caleb Gollapalli"];
+  const subtitles = ["Call me Caleb", "... unless you're my mom"];
 
-    const subtitleStrings = [
-        "Call me Caleb",
-        "... unless you're my mom"
-    ]
+  const { text: titleText, isDone: titleDone, showCursor: showTitleCursor } = useTypewriter(titles, {
+    typingSpeed: 50,
+    deletingSpeed: 60,
+    pauseDuration: 2000,
+    loop: false,
+    keepLastPhrase: true,
+  });
 
-  enum subtitleState {
-      'notStarted',
-      'started',
-      'done'
-  }
-
-  const [showSubtitle, setShowSubtitle] = useState<subtitleState>(subtitleState.notStarted)
-  const [showSubBool, setShowSubBool] = useState<boolean>(false)
-
-  const title = useTypewriter(titleStrings, 3, true)
-
-  const subtitle = useTypewriter(subtitleStrings, 3, true, showSubBool)
-
-    useEffect(() => {
-        console.log("Here we are", title.done, subtitle.done)
-        if (title.done) {
-            if (showSubtitle == subtitleState.notStarted) {
-                setShowSubtitle(subtitleState.started)
-                setShowSubBool(true)
-            }
-            else if (subtitle.done) {
-                setShowSubBool(false)
-                setShowSubtitle(subtitleState.done)
-            }
-        }
-    }, [title.done, subtitle.done, title, subtitle])
+  const { text: subtitleText, showCursor: showSubtitleCursor } = useTypewriter(subtitles, {
+    typingSpeed: 50,
+    deletingSpeed: 50,
+    pauseDuration: 1800,
+    loop: false,
+    keepLastPhrase: true,
+    startDelay: 3000, // Delay subtitle start until after title begins
+  });
 
   return (
-      <div>
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl lg:min-w-full font-mono justify-self-left">
-        {title.outstring}
-    </h1>
-    {
-        showSubBool && (
-            <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-                {subtitle.outstring}
-            </h2>)
-    }
-</div>
-  )
-}
+    <div className="relative w-full max-w-4xl mx-auto p-4">
+      <div className="space-y-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
+          <span className="relative">
+            {titleText}
+            {showTitleCursor && (
+              <span className="animate-blink ml-1 opacity-90">|</span>
+            )}
+          </span>
+        </h1>
+
+        {titleDone && (
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-700 transition-opacity duration-500 ease-in-out">
+            <span className="relative">
+              {subtitleText}
+              {showSubtitleCursor && (
+                <span className="animate-blink ml-1 opacity-90">|</span>
+              )}
+            </span>
+          </h2>
+        )}
+      </div>
+    </div>
+  );
+};
