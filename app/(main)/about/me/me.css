@@ -1,0 +1,6 @@
+.fade-in-17 {
+    animation-name: fadeIn;
+    animation-delay: 17s;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
