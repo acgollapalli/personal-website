@@ -8,7 +8,8 @@ type TypewriterOptions = {
   pauseDuration?: number,
   loop?: boolean,
   keepLastPhrase?: boolean,
-  startDelay?: number
+  startDelay?: number,
+  pauseOnLastPhrase: boolean,
 }
 
 type TypewriterReturn = {
@@ -25,6 +26,7 @@ export const useTypewriter = (phrases: string[], options: TypewriterOptions = {}
     loop = true,
     keepLastPhrase = false,
     startDelay = 0,
+    pauseOnLastPhrase = false,
   } = options;
 
   const [displayText, setDisplayText] = useState('');
@@ -63,10 +65,12 @@ export const useTypewriter = (phrases: string[], options: TypewriterOptions = {}
       }
 
       // Handle completion of current phrase
-      if (keepLastPhrase && currentPhraseIndex === phrases.length - 1) {
-        setIsDone(true);
-        setTimeout(() => setShowCursor(false), pauseDuration);
-        return;
+      if (keepLastPhrase && !pauseOnLastPhrase && currentPhraseIndex === phrases.length - 1) {
+          setTimeout(() => {
+            setShowCursor(false);
+            setIsDone(true);
+          }, pauseDuration);
+          return;
       }
 
       // Start pause
@@ -128,52 +132,4 @@ export const useTypewriter = (phrases: string[], options: TypewriterOptions = {}
     isDone,
     showCursor,
   };
-};
-
-const TypewriterHeader: React.FC = () => {
-  const titles = ["About me", "Akshay Caleb Gollapalli"];
-  const subtitles = ["Call me Caleb", "... unless you're my mom"];
-
-  const { text: titleText, isDone: titleDone, showCursor: showTitleCursor } = useTypewriter(titles, {
-    typingSpeed: 80,
-    deletingSpeed: 60,
-    pauseDuration: 2000,
-    loop: false,
-    keepLastPhrase: true,
-  });
-
-  const { text: subtitleText, showCursor: showSubtitleCursor } = useTypewriter(subtitles, {
-    typingSpeed: 70,
-    deletingSpeed: 50,
-    pauseDuration: 1800,
-    loop: false,
-    keepLastPhrase: true,
-    startDelay: 1000, // Start subtitle after title begins
-  });
-
-  return (
-    <div className="relative w-full max-w-4xl mx-auto p-4">
-      <div className="space-y-4">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
-          <span className="relative">
-            {titleText}
-            {showTitleCursor && (
-              <span className="animate-blink ml-1 opacity-90">|</span>
-            )}
-          </span>
-        </h1>
-
-        {titleDone && (
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-700 transition-opacity duration-500 ease-in-out">
-            <span className="relative">
-              {subtitleText}
-              {showSubtitleCursor && (
-                <span className="animate-blink ml-1 opacity-90">|</span>
-              )}
-            </span>
-          </h2>
-        )}
-      </div>
-    </div>
-  );
 };

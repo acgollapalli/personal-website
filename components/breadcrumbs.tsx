@@ -23,7 +23,7 @@ function crumbwiper(accumulator, crumb){
     else {
         accumulator.push({
             name: crumb,
-            link: accumulator[accumulator.length - 1].path + "/" + crumb
+            link: accumulator[accumulator.length - 1].link + "/" + crumb
         })
     }
     return accumulator
@@ -54,6 +54,7 @@ function crumblingMyLife({link, name}) {
         )
     }
     else {
+        console.log("breadcrumb", link, name)
         return (
                           <BreadcrumbItem key={link}>
                     <BreadcrumbLink asChild>

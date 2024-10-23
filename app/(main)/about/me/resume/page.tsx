@@ -6,7 +6,7 @@ import { ContactHeader } from "@/components/resume/contact-header"
 
 const Resume = () => {
   return (
-    <div className="p-8 container mx-auto py-8 space-y-8">
+    <div className="p-8 container mx-auto py-8 space-y-8 max-w-[1024px]">
       {/* Header */}
       <ContactHeader/>
 

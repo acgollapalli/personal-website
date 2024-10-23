@@ -11,6 +11,9 @@ import {
   MessageCircleQuestion,
   Search,
   Settings2,
+  FileUser,
+  UserPen,
+  Workflow,
   Sparkles,
   Trash2,
 } from "lucide-react"
@@ -49,35 +52,35 @@ const data = {
   ],
   navMain: [
     {
-      title: "Home",
-      url: "#",
-      icon: Home,
-      isActive: true,
-    },
-    {
-      title: "Blog",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "Ask AI",
-      url: "#",
-      icon: Sparkles,
-    },
-    {
-      title: "Inbox",
-      url: "#",
+      title: "About Me",
+      url: "/about/me",
       icon: Inbox,
       badge: "10",
     },
-  ],
-  navSecondary: [
     {
-      title: "Calendar",
-      url: "#",
-      icon: Calendar,
+      title: "Resume",
+      url: "/about/me/resume",
+      icon: FileUser,
     },
     {
+      title: "Projects",
+      url: "/projects",
+      icon: Workflow,
+    },
+    {
+      title: "Blog",
+      url: "/blog",
+      icon: UserPen,
+    },
+
+    ],
+    navSecondary: [
+        {
+            title: "Calendar",
+            url: "#",
+            icon: Calendar,
+        },
+        {
       title: "Settings",
       url: "#",
       icon: Settings2,
@@ -267,11 +270,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavHome/>
         <NavMain items={data.navMain} />
       </SidebarHeader>
+      {/*
       <SidebarContent>
         <NavFavorites favorites={data.favorites} />
         <NavWorkspaces workspaces={data.workspaces} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+*/}
       <SidebarRail />
     </Sidebar>
   )

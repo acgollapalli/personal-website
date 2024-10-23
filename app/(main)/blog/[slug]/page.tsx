@@ -61,7 +61,7 @@ export default async function blog({ params }) {
   }
 
   return (
-    <section className=" flex justify-center">
+    <section>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -84,7 +84,7 @@ export default async function blog({ params }) {
         }}
       />
     <div className="max-w-prose p-8">
-      <main className="object-top">
+      <main >
       <h1 className="title font-semibold text-2xl tracking-tighter">
         {post.metadata.title}
       </h1>

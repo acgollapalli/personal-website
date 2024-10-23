@@ -14,13 +14,13 @@ export const AboutMeHeader: React.FC = () => {
     keepLastPhrase: true,
   });
 
-  const { text: subtitleText, showCursor: showSubtitleCursor } = useTypewriter(subtitles, {
+  const { text: subtitleText, showCursor: showSubtitleCursor, isDone: subtitleDone } = useTypewriter(subtitles, {
     typingSpeed: 50,
     deletingSpeed: 50,
     pauseDuration: 1800,
     loop: false,
-    keepLastPhrase: true,
-    startDelay: 3000, // Delay subtitle start until after title begins
+    keepLastPhrase: false,
+    startDelay: 8000, // Delay subtitle start until after title begins
   });
 
   return (
@@ -35,7 +35,7 @@ export const AboutMeHeader: React.FC = () => {
           </span>
         </h1>
 
-        {titleDone && (
+        {titleDone && !subtitleDone && (
           <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-700 transition-opacity duration-500 ease-in-out">
             <span className="relative">
               {subtitleText}

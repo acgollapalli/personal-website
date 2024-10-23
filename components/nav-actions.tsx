@@ -132,7 +132,7 @@ export function NavActions(){
             </Button>
             <Link href="/blog/rss">
             <Button variant="ghost" size="icon" className="h-7 w-7" title="I should probably just start a substack!">
-              <Rss /> {/* FIXME: linke to RSS feed here*/}
+              <Rss />
             </Button>
             </Link>
             <Popover open={isOpen} onOpenChange={setIsOpen}>
