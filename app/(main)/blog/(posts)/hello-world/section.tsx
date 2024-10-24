@@ -1,44 +1,23 @@
 'use client'
+import { useRef } from "react"
+import { useInViewport } from 'react-in-viewport';
 
-import { useEffect, useState,  useRef } from "react"
-
-
-export const Section = ({ prev, children, succ }) => {
-  const sectionRef = useRef(null)
-  const [inViewport, setInViewport] = useState<boolean>(false)
-
-  // observe when our section is in view
-  useEffect(() => {
-    let observer
-
-    const observerFn = (entries) => {
-        if (!inViewport) setInViewport(entries[0]) // only setInViewport once
-        if (succ != null) succ(true)
-    }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '100px',
-      rootThreshold: 1
-    }
-
-    observer = new IntersectionObserver(observerFn, observerOptions)
-
-    if (sectionRef.current != null) {
-        observer.observe(sectionRef.current)
-    }
-     // let's keep things tidy
-     return () => { if (sectionRef.current) observer.unobserve(sectionRef.current) }
-  }, [sectionRef])
+export const Section = ({ prev, children }) => {
+  const myRef = useRef();
+  const {
+    inViewport,
+    enterCount,
+    leaveCount,
+  } = useInViewport(myRef);
 
   return (
-        <section ref={sectionRef}>
-            {inViewport && prev && children }
-            { !prev && (
+        <div ref={myRef}>
+            {(inViewport || enterCount > 0) && prev && children }
+            { ((enterCount == 0) || !prev) && (
                 <div className="opacity-0">
                 {children}
                 </div>
             ) }
-        </section>
+        </div>
     )
 }

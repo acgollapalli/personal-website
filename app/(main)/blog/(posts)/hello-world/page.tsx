@@ -2,6 +2,8 @@
 //import { Code, RoundedImage, CustomLink, Table, FormatDate } from "@/components/blog"
 import { Title } from "./title"
 import { BlogPost } from "./mdx"
+import { Subtitle } from "./subtitle"
+import { Section } from "./section"
 
 
 export const metadata = {
@@ -17,8 +19,8 @@ export default function Page () {
     "Welcome to my blog",
     "AKA: Hello, World!"]
   const subtitle=[
-    "Why I created this site",
-    "Or... Why I'm burned out",
+    "Why I built this site",
+    "Or... a bit about burnout",
     "IDK just read the article",
     "Welcome to the Wizard Log"
   ]
@@ -28,6 +30,9 @@ export default function Page () {
     <div className="max-w-prose">
       <Title title={title} subtitle={subtitle}/>
       <BlogPost mdxFile={"hello-world2"}/>
+      <Section prev={true}>
+        <Subtitle subtitle={["Hello, World!"]}/>
+      </Section>
     </div>
   )
 

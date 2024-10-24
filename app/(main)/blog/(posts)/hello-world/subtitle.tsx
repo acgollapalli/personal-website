@@ -5,9 +5,9 @@ import { useTypewriter } from "@/components/effects/typewriter"
 export const Subtitle = ({subtitle}: { subtitle: string | string[]}) => {
   const subtitleStrings = Array.isArray(subtitle) ? subtitle : [subtitle]
   const { text: subtitleText, showCursor: showSubtitleCursor, isDone: subtitleDone } = useTypewriter(subtitleStrings, {
-    typingSpeed: 80,
-    deletingSpeed: 100,
-    pauseDuration: 1000,
+    typingSpeed: 50,
+    deletingSpeed: 30,
+    pauseDuration: 500,
     loop: false,
     keepLastPhrase: true,
   });

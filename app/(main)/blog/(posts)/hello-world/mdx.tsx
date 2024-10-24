@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import {type ReactNode } from "react"
+
 import { Paragraph } from "./paragraph"
 import { Heading } from "./heading"
 import { SubHeading } from "./subheading"
@@ -7,8 +9,10 @@ import { BlockQuote } from "./blockquote"
 import { Section } from "./section"
 import { getOnePost } from "@/lib/blog"
 
+// FIXME: This entire FILE is terrible.
+// It will all have to be rewritten for the next post
 
-type Content = { prefix: string, content: string[], href?: string }
+type Content = { prefix: string, content: (string | ReactNode)[], href?: string }
 
 // FIXME: refactor this monstrosity
 export function interpretMarkdown({ content }: { content: string }): Content[] {
@@ -56,7 +60,7 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
     let left = 0
     for (let i = stack.length -1; !nonEm && i > -1; i--) {
       if (stack[i] != '*') nonEm = i
-      right = stack.length - i
+      right = stack.length - i -1
     }
 
     if (nonEm) {
@@ -72,6 +76,7 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
     else {
       let firstNonEm = stack.slice(0, nonEm).findLastIndex(ch => ch == '*') + 1
       let content = stack.slice(firstNonEm, nonEm + 1).join('')
+      console.log("em", left, right, stack.slice(firstNonEm))
       stack = stack.slice(0, firstNonEm - left)
       if (left > 1) content = '<strong>' + content + '</strong>'
       if (left % 2 == 1) content = '<em>' + content + '</em>'
@@ -90,15 +95,15 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
         }
         else stack.push(c)
         break
-      case ']':
+      case ')':
         // handle links
-        const hrefOpener = stack.findLastIndex(ch => ch == '[')
-        const descriptionCloser = hrefOpener >= 0 &&  stack[hrefOpener -1] == '('
+        const hrefOpener = stack.findLastIndex(ch => ch == '(')
+        const descriptionCloser = hrefOpener >= 0 &&  stack[hrefOpener -1] == ']'
         const descriptionOpener = descriptionCloser ?
                                   stack.slice(0, hrefOpener - 1)
-                                       .findLastIndex(ch => ch == '(') : -1
+                                       .findLastIndex(ch => ch == '[') : -1
         if (descriptionOpener >= 0) {
-          const linkContent = stack.slice(descriptionOpener + 1, hrefOpener -2).join('')
+          const linkContent = stack.slice(descriptionOpener + 1, hrefOpener -1).join('')
           const linkHref = stack.slice(hrefOpener + 1).join('')
           stack = stack.slice(0, descriptionOpener)
           if (stack.length > 0) handleParagraph()
@@ -133,10 +138,59 @@ function findPrecedence(topLevel: string, prefix: string) {
   return  elemPrecedences[prefix] - elemPrecedences[topLevel]
 }
 
+
+function fixStrong(pStr: string | ReactNode) {
+  if (typeof pStr !== 'string') return pStr
+  let s = pStr
+  const out = []
+  for (let i = s.indexOf("<strong>"); i >= 0; i = s.indexOf("<strong>")) {
+    const j = s.indexOf("</strong>")
+    console.log("strong", s.slice(i+8,j))
+    out.push(s.slice(0, i))
+    out.push(<strong>{s.slice(i+8, j)}</strong>)
+    s = s.slice(j+9)
+  }
+  if (s != pStr) {
+    out.push(s)
+    return out
+  }
+  else return s
+}
+
+function fixItalic(pStr: string) {
+  console.log("em init", pStr)
+    let s = pStr
+  const out = []
+  for (let i = s.indexOf("<em>"); i >= 0; i = s.indexOf("<em>")) {
+    const j = s.indexOf("</em>")
+    console.log("em", s.slice(i+4,j))
+    out.push(s.slice(0, i))
+    const si = fixStrong(s.slice(i+4, j))
+    console.log("em si", si)
+    if (si.length == 1) out.push(<em>{si[0]}</em>)
+    else out.push(s.slice(i+4, j))
+    s = s.slice(j+5)
+  }
+  if (s != pStr) {
+    out.push(s)
+    return out
+  }
+  else return s
+}
+
+
+function fixEm(pStrings: string[]): (string | ReactNode)[] {
+  return pStrings
+    .map(fixItalic).flat()
+    .map(fixStrong).flat()
+}
+
+
 function BlogElement({content}) {
   if (content.length == 0) return (<></>)
 
   let elemStack: Content[][] = [[]]
+
 
   for (let elem of content) {
     const workingSet = elemStack[elemStack.length -1]
@@ -147,7 +201,7 @@ function BlogElement({content}) {
     }
     else {
       const precedence = findPrecedence(workingSet[0].prefix, elem.prefix)
-      if (precedence > 0) elemStack.push([elem])
+      if (precedence >= 0) elemStack.push([elem])
       else workingSet.push(elem)
     }
   }
@@ -165,15 +219,19 @@ function BlogElement({content}) {
     switch (topLevel.prefix) {
       case "#":
         return (
+          <Section prev={true}>
           <Heading heading={topLevel.content}>
             <BlogElement content={elements.slice(1)}/>
           </Heading>
+          </Section>
         )
       case "##":
         return (
+          <Section prev={true}>
           <SubHeading subheading={topLevel.content}>
             <BlogElement content={elements.slice(1)}/>
           </SubHeading>
+          </Section>
         )
       case ">":
         return (
@@ -181,16 +239,24 @@ function BlogElement({content}) {
         )
       case "a":
         return (
-          <Link href={topLevel.href || "#"}>{topLevel.content}</Link>
+          <Link
+            className="font-medium text-primary underline underline-offset-4"
+            target="_blank"
+            href={topLevel.href || "#"}
+          >
+            <>
+            {fixEm(topLevel.content)}
+          </>
+          </Link>
         )
       case "p":
         return (
           <Paragraph>
             { elements.map(lm => {
                 if (lm.prefix == "p") {
-                  return lm.content
+                  return fixEm(lm.content)
                 }
-                else return (<BlogElement content={lm}/>)
+                else return (<BlogElement content={[lm]}/>)
             }).flat() }
           </Paragraph>
         )

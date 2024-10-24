@@ -6,8 +6,8 @@ export const BlockQuote = ({ blockQuote }: { blockQuote: string[] }) => {
   const blockQuotestrings = Array.isArray(blockQuote) ? blockQuote : [blockQuote]
 
   const options =  {
-    typingSpeed: 70,
-    deletingSpeed: 90,
+    typingSpeed: 50,
+    deletingSpeed: 30,
     pauseDuration: 2000,
     loop: true,
     keepLastPhrase: false

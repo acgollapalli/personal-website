@@ -3,12 +3,12 @@
 import { useTypewriter } from "@/components/effects/typewriter"
 import { Section } from "./section"
 
-export const Heading = ({heading, children }) => {
+export const Heading = ({heading, children}) => {
   const headingstrings = Array.isArray(heading) ? heading : [heading]
 
   const { text: headingtext, showCursor: showheadingcursor, isDone: headingdone } = useTypewriter(headingstrings, {
-    typingSpeed: 70,
-    deletingSpeed: 90,
+    typingSpeed: 50,
+    deletingSpeed: 70,
     pauseDuration: 1000,
     loop: false,
     keepLastPhrase: true,
@@ -16,6 +16,7 @@ export const Heading = ({heading, children }) => {
 
   return (
     <div>
+      <br/>
     <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight font-mono">
       <span className="relative">
         {headingtext}

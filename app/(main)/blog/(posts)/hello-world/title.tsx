@@ -26,7 +26,7 @@ export const Title = ({title, subtitle}: { title: string | string[], subtitle: s
       {subtitle && titleDone && <Subtitle subtitle={subtitle}/>}
       {subtitle && !titleDone && ( <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-mono opacity-0">
       <span className="relative">
-        {subtitle.sort((a, b) => b.length - a.length)[0]}
+        {subtitle.toSorted((a, b) => b.length - a.length)[0]}
       </span>
     </h2>)}
     </div>

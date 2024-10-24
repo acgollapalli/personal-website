@@ -16,6 +16,7 @@ export const SubHeading = ({subheading, children }) => {
 
   return (
     <div>
+    <br/>
     <h4 className="scroll-m-20 text-xl font-semibold tracking-tight font-mono">
       <span className="relative">
         {subheadingtext}
