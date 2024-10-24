@@ -1,5 +1,3 @@
-//import { MDXRemote } from 'next-mdx-remote/rsc'
-//import { Code, RoundedImage, CustomLink, Table, FormatDate } from "@/components/blog"
 import { Title } from "./title"
 import { BlogPost } from "./mdx"
 import { Subtitle } from "./subtitle"
@@ -8,9 +6,9 @@ import { Section } from "./section"
 
 export const metadata = {
   title: "Hello, World!",
- // datePublished: "2024-11-22",
   author: "Akshay Caleb Gollapalli",
-  summary: "Entering the World of Software, or Well... Re-entering it."
+  summary: "Entering the World of Software, or Well... Re-entering it.",
+  datePublished: "10-24-2024"
 }
 
 
@@ -25,13 +23,12 @@ export default function Page () {
     "Welcome to the Wizard Log"
   ]
 
-
   return (
     <div className="max-w-prose">
       <Title title={title} subtitle={subtitle}/>
       <BlogPost mdxFile={"hello-world2"}/>
       <Section prev={true}>
-        <Subtitle subtitle={["Hello, World!"]}/>
+        <Title title={["Hello, World!"]}/>
       </Section>
     </div>
   )
