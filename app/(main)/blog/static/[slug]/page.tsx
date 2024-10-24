@@ -60,6 +60,8 @@ export default async function blog({ params }) {
     notFound()
   }
 
+  console.log("post", post)
+
   return (
     <section>
       <script

@@ -49,6 +49,15 @@ function getMDXData(dir) {
   })
 }
 
+export function getOnePost(name) {
+  const filePath = path.join(process.cwd(), 'static', 'blog', 'posts', name + ".mdx")
+  let { metadata, content } = readMDXFile(filePath)
+    return {
+      metadata,
+      content,
+    }
+}
+
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'static', 'blog', 'posts'))
 }

@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link"
 
-import './me.css'
-
 import { Separator } from "@/components/ui/separator"
 
 import { AboutMeHeader } from "@/components/headings/about-me";
