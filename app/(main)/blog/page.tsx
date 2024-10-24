@@ -1,15 +1,18 @@
 import { BlogPosts } from '@/components/blog/posts'
+import { BlogHeader } from "./heading"
 
 export const metadata = {
   title: 'Wizard Log',
-  description: "Just one wannabe wizard's blog. Hacker's welcome",
+  description: "Just one wannabe wizard's blog. Hackers welcome",
 }
 
 export default function Page() {
   return (
-    <section className="p-16 sm:min-w-[576px] min-w-full">
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Wizard Log</h1>
-      <BlogPosts />
-    </section>
+    <div>
+      <section className="p-16 lg:min-w-[672px] sm:min-w-[576px] min-w-full">
+        <BlogHeader/>
+        <BlogPosts />
+      </section>
+    </div>
   )
 }

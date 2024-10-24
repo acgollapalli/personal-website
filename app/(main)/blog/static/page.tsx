@@ -1,4 +1,4 @@
-import { BlogPosts } from '@/components/blog/posts'
+import { StaticBlogPosts } from '@/components/blog/posts'
 
 export const metadata = {
   title: 'Wizard Log',
@@ -8,8 +8,17 @@ export const metadata = {
 export default function Page() {
   return (
     <section className="p-16 sm:min-w-[576px] min-w-full">
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">Wizard Log</h1>
-      <BlogPosts />
+       <div className="relative max-w-prose mx-auto p-4">
+      <div className="space-y-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
+          *the Wizard Log*
+        </h1>
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-700 transition-opacity duration-500 ease-in-out">
+          Static Edition
+        </h2>
+      </div>
+       </div>
+      <StaticBlogPosts />
     </section>
   )
 }
