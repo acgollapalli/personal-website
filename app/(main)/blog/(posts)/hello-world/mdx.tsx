@@ -209,7 +209,7 @@ function BlogElement({content}) {
   if (elemStack.length > 1) {
     return (
       <>
-        {elemStack.map(elem => <BlogElement content={elem}/>).flat()}
+        {elemStack.map((elem, idx) => <BlogElement content={elem} key={idx}/>).flat()}
       </>
     )
   }
@@ -252,11 +252,11 @@ function BlogElement({content}) {
       case "p":
         return (
           <Paragraph>
-            { elements.map(lm => {
+            { elements.map((lm, idx) => {
                 if (lm.prefix == "p") {
                   return fixEm(lm.content)
                 }
-                else return (<BlogElement content={[lm]}/>)
+                else return (<BlogElement content={[lm]} key={idx}/>)
             }).flat() }
           </Paragraph>
         )

@@ -22,7 +22,7 @@ export const BlockQuote = ({ blockQuote }: { blockQuote: string[] }) => {
 
   return (
     <div>
-    <blockquote className="mt-6 border-l-2 pl-6 font-mono">
+    <blockquote className="my-3 border-l-2 pl-6 font-mono">
       <span className="relative">
         {blockQuotetext}
         { showblockQuotecursor && (
@@ -30,7 +30,6 @@ export const BlockQuote = ({ blockQuote }: { blockQuote: string[] }) => {
         ) }
       </span>
     </blockquote>
-    <br/>
     </div>
   )
 }

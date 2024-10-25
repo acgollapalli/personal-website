@@ -6,7 +6,7 @@ import { ContactHeader } from "@/components/resume/contact-header"
 
 const Resume = () => {
   return (
-    <div className="p-8 container mx-auto py-8 space-y-8 max-w-[1024px]">
+    <div className="p-8 container mx-auto py-8 space-y-6 max-w-[1024px]">
       {/* Header */}
       <ContactHeader/>
 
@@ -76,7 +76,7 @@ const Resume = () => {
               <li>Served as Interim Lead on The BrainHealth Project, built on Next.JS, deployed via CircleCI to AWS Elastic Container Service.</li>
               <li>Optimized multiplayer deployment pipeline using Jenkins, AWS GameLift, and CloudFormation reducing costs by 70%.</li>
               <li>Enhanced web portal, designing and implementing new systems, as well as CMS, video, and game-streaming integrations.</li>
-              <li>Implemented Infrastructure as Code practices using AWS CloudFormation for consistent and repeatable deployments.</li>
+              <li>Implemented Infrastructure as Code using AWS CloudFormation for consistent and repeatable deployments.</li>
               <li>Deployed and managed Docker images on AWS Elastic Container Service (ECS) for various backend services.</li>
               <li>Managed and scaled cloud infrastructure to handle high traffic and data volumes.</li>
             </ul>
@@ -129,9 +129,9 @@ const Resume = () => {
             </div>
             <p className="leading-7">
               Designed and implemented a multi-cloud, distributed-by-default stored-function engine with
-              REST API and stream processing capabilities, using Clojure, XTDB, and Kafka. The system
-              allowed horizontal scaling of the API, Message Streaming, Database Scaling of an application
-              or business environment in a zero-downtime, fault-tolerant way, and updates to business logic,
+              REST API and stream processing capabilities, using Clojure, XTDB, and Kafka. This system
+              allows for horizontal scaling of the API, Message Streaming, and Database of an application
+              or business environment in a zero-downtime, fault-tolerant way. Updates to business logic,
               API endpoints, and stream processing pipelines by atomically redeploying only that piece of
               logic, stored in XTDB and run by the Dataworks instance.
             </p>

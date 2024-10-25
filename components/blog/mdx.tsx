@@ -64,6 +64,10 @@ function slugify(str) {
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
+
+// FIXME: the static version of the blog
+// looks like garbage because this isn't
+// using any of the typography
 function createHeading(level) {
   const Heading = ({ children }) => {
     let slug = slugify(children)

@@ -1,15 +1,17 @@
 'use client'
+
 //import { useState, useEffect } from "react"
 import { useTypewriter } from "@/components/effects/typewriter"
+import { useState, useEffect } from "react"
 
-export const AboutMeHeader: React.FC = () => {
+export const ActiveHeader: React.FC = ({ callback }) => {
   const titles = ["About me", "Akshay Caleb Gollapalli"];
   const subtitles = ["Call me Caleb", "... unless you're my mom"];
 
   const { text: titleText, isDone: titleDone, showCursor: showTitleCursor } = useTypewriter(titles, {
     typingSpeed: 50,
     deletingSpeed: 60,
-    pauseDuration: 800,
+    pauseDuration: 2000,
     loop: false,
     keepLastPhrase: true,
   });
@@ -17,11 +19,15 @@ export const AboutMeHeader: React.FC = () => {
   const { text: subtitleText, showCursor: showSubtitleCursor, isDone: subtitleDone } = useTypewriter(subtitles, {
     typingSpeed: 50,
     deletingSpeed: 50,
-    pauseDuration: 500,
+    pauseDuration: 1800,
     loop: false,
     keepLastPhrase: false,
     startDelay: 8000, // Delay subtitle start until after title begins
   });
+
+    useEffect(() => {
+        if (subtitleDone) callback()
+    }, [subtitleDone])
 
   return (
     <div className="relative w-full max-w-4xl mx-auto p-4">
@@ -49,3 +55,31 @@ export const AboutMeHeader: React.FC = () => {
     </div>
   );
 };
+
+
+export const StaticHeader: React.FC = () => {
+  return (
+    <div className="relative w-full max-w-4xl mx-auto p-4">
+      <div className="space-y-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
+          <span className="relative">
+              Akshay Caleb Gollapalli
+          </span>
+        </h1>
+      </div>
+    </div>
+  );
+};
+
+export function  AboutMeHeader() {
+     const [isActive, setActive] = useState(true)
+
+    return (
+        <div>
+            {isActive ?
+                (<ActiveHeader callback={() => setActive(false)} />) :
+               (<StaticHeader  />)
+            }
+        </div>
+    )
+}

@@ -22,6 +22,8 @@ export default function Page () {
     "Welcome to the Wizard Log"
   ]
 
+  // TODO: Link to the static version here
+  // for people who hate fun
   return (
     <div className="max-w-prose">
       <Title title={title} subtitle={subtitle}/>

@@ -15,7 +15,7 @@ export const Subtitle = ({subtitle}: { subtitle: string | string[]}) => {
   // FIXME: We may want to add some transition-opacity maybe in a subtitle theme
   // Let's see how it looks first though
   return (
-    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-mono text-gray-700 transition-opacity duration-500 ease-in-out">
+    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-mono text-gray-500 transition-opacity duration-500 ease-in-out">
       <span className="relative">
         {subtitleText}
         { showSubtitleCursor && (

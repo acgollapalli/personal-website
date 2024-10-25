@@ -1,4 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Personal Website
+
+Hi, you've reached the source code of my personal website. 
+
+I'd be happy to take constructive criticism from anyone that bothers to actually read the code.
+
+The site was built using Next.JS. I actually quite like the dev experience with Next.JS, minus the lack of helpful error messages. But... my first language was Clojure and my first web-framework was Luminus, so I'm sort of used to it. 
+
+I'm using ShadCN for UI components. I really like their stuff. It makes it easy on me, and since the code for each component lives in the repo, I can modify them as needed.
+
+There's a lot of 'use client' in this version of the website. I'm not sure how to
+get the typewriter effects or the render-on-scroll behavior without it. But I tried
+to include a static (server-side rendered) version of the blog, resume, and about-me pages.
+
+I'm probably going to deploy on Vercel, just to try it. I think there's a lot of value in the whole proposition.
+
+The rest of this document is Next.JS boilerplate. It all still works. Just make sure
+to install dependencies first: `pnpm i`
 
 ## Getting Started
 

@@ -137,7 +137,7 @@ export function NavActions(){
     </Button>
     </Link>
     <Link href="https://github.com/acgollapalli/personal-website">
-    <Button variant="ghost" size="icon" className="h-7 w-7" title="I should probably just start a substack!">
+    <Button variant="ghost" size="icon" className="h-7 w-7" title="Please don't, it's horrid">
       <GitHubLogoIcon/>
     </Button>
     </Link>
