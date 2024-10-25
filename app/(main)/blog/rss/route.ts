@@ -2,7 +2,7 @@ import { baseUrl } from '@/lib/constants'
 import { getBlogPosts } from '@/lib/blog'
 
 export async function GET() {
-  let allBlogs = await getBlogPosts()
+  const allBlogs = await getBlogPosts()
 
   const itemsXml = allBlogs
     .sort((a, b) => {

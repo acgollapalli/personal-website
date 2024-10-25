@@ -2,8 +2,13 @@
 
 import { useTypewriter } from "@/components/effects/typewriter"
 import { Section } from "./section"
+import React, { PropsWithChildren } from "react"
 
-export const SubHeading = ({subheading, children }) => {
+type SubHeadingProps = PropsWithChildren<{
+  subheading: string | string[]
+}>
+
+export const SubHeading: React.FC<SubHeadingProps> = ({subheading, children }) => {
   const subheadingstrings = Array.isArray(subheading) ? subheading : [subheading]
 
   const { text: subheadingtext, showCursor: showsubheadingcursor, isDone: subheadingdone } = useTypewriter(subheadingstrings, {
@@ -25,7 +30,7 @@ export const SubHeading = ({subheading, children }) => {
         ) }
       </span>
     </h4>
-    {children.map((child, idx) => (
+    {Array.isArray(children) && children.map((child, idx) => (
       <div key={subheadingstrings[0] + idx} >
         <Section prev={subheadingdone}>
           {child}

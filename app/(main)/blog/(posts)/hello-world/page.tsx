@@ -25,7 +25,7 @@ export default function Page () {
   // TODO: Link to the static version here
   // for people who hate fun
   return (
-    <div className="max-w-prose">
+    <div className="max-w-prose pb-6">
       <Title title={title} subtitle={subtitle}/>
       <BlogPost mdxFile={"hello-world"}/>
       <Section prev={true}>

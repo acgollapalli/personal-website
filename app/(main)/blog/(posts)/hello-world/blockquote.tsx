@@ -18,7 +18,7 @@ export const BlockQuote = ({ blockQuote }: { blockQuote: string[] }) => {
     options.loop = false
   }
 
-  const { text: blockQuotetext, showCursor: showblockQuotecursor, isDone: blockQuotedone } = useTypewriter(blockQuotestrings, options);
+  const { text: blockQuotetext, showCursor: showblockQuotecursor } = useTypewriter(blockQuotestrings, options);
 
   return (
     <div>

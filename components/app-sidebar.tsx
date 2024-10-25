@@ -6,27 +6,24 @@ import {
   Blocks,
   Calendar,
   Command,
-  Home,
   Inbox,
   MessageCircleQuestion,
-  Search,
   Settings2,
   FileUser,
   UserPen,
   Workflow,
-  Sparkles,
   Trash2,
 } from "lucide-react"
 
-import { NavFavorites } from "@/components/nav-favorites"
+//import { NavFavorites } from "@/components/nav-favorites"
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavWorkspaces } from "@/components/nav-workspaces"
-import { TeamSwitcher } from "@/components/team-switcher"
+//import { NavSecondary } from "@/components/nav-secondary"
+//import { NavWorkspaces } from "@/components/nav-workspaces"
+//import { TeamSwitcher } from "@/components/team-switcher"
 import { NavHome } from "@/components/nav-home"
 import {
   Sidebar,
-  SidebarContent,
+//  SidebarContent,
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { formatDate, getBlogPosts } from '@/lib/blog'
 
 export function BlogPosts() {
-  let allBlogs = getBlogPosts()
+  const allBlogs = getBlogPosts()
 
   console.log(allBlogs.length)
   return (
@@ -46,7 +46,7 @@ export function BlogPosts() {
 
 
 export function StaticBlogPosts() {
-  let allBlogs = getBlogPosts()
+  const allBlogs = getBlogPosts()
 
 
   return (
@@ -61,7 +61,7 @@ export function StaticBlogPosts() {
           return 1
         })
         .map((post) => (
-            <div className="w-full flex flex-column md:flex-row justify-between key={`static\${post.slug}`}">
+            <div className="w-full flex flex-column md:flex-row justify-between" key={`static\${post.slug}`}>
                 <Link
                     key={`static\${post.slug}`}
                     href={`/blog/static${post.slug}`}

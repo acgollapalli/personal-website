@@ -3,28 +3,33 @@ import { CustomMDX } from '@/components/blog/mdx'
 import { formatDate, getBlogPosts } from '@/lib/blog'
 import { baseUrl } from '@/lib/constants'
 
+
+// This is some nonsense
+import { getServerSideProps } from 'next/dist/build/templates/pages'
+type PageProps = Awaited<ReturnType<typeof getServerSideProps>>['props']
+
 export async function generateStaticParams() {
-  let posts = getBlogPosts()
+  const posts = getBlogPosts()
 
   return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }: PageProps ) {
   const { slug } = await params
-  let post = getBlogPosts().find((post) => post.slug === slug)
+  const post = getBlogPosts().find((post) => post.slug === slug)
   if (!post) {
     return
   }
 
-  let {
+  const {
     title,
     publishedAt: publishedTime,
     summary: description,
     image,
   } = post.metadata
-  let ogimage = image
+  const ogimage = image
     ? image
     : `${baseUrl}/og?title=${encodeURIComponent(title)}`
 
@@ -52,9 +57,9 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function blog({ params }) {
+export default async function blog({ params }: PageProps) {
   const {slug} = await params
-  let post = getBlogPosts().find((post) => post.slug === slug)
+  const post = getBlogPosts().find((post) => post.slug === slug)
 
   if (!post) {
     notFound()

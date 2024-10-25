@@ -13,7 +13,7 @@ export const BlogHeader: React.FC = () => {
     keepLastPhrase: true,
   });
 
-  const { text: subtitleText, showCursor: showSubtitleCursor, isDone: subtitleDone } = useTypewriter(subtitles, {
+  const { text: subtitleText, showCursor: showSubtitleCursor } = useTypewriter(subtitles, {
     typingSpeed: 50,
     deletingSpeed: 50,
     pauseDuration: 1800,

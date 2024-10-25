@@ -3,7 +3,7 @@
 import { useTypewriter } from "@/components/effects/typewriter"
 import { Subtitle } from "./subtitle"
 
-export const Title = ({title, subtitle}: { title: string | string[], subtitle: string[] }): React.FC => {
+export const Title = ({title, subtitle}: { title: string | string[], subtitle?: string[] })=> {
   const titleStrings = Array.isArray(title) ? title : [title]
   const { text: titleText, showCursor: showTitleCursor, isDone: titleDone } = useTypewriter(titleStrings, {
     typingSpeed: 60,

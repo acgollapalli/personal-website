@@ -12,6 +12,7 @@ import { getOnePost } from "@/lib/blog"
 // FIXME: This entire FILE is terrible.
 // It will all have to be rewritten for the next post
 
+type RenderableByP = string | ReactNode
 type Content = { prefix: string, content: (string | ReactNode)[], href?: string }
 
 // FIXME: refactor this monstrosity
@@ -19,7 +20,7 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
   let stack: string[] = [] // honestly it's a LOT easier to just clear it sometimes
   const out: Content[] = [] // we don't want to just clear this.
 
-  const handlePrefix = (prefix, content) => {
+  const handlePrefix = (prefix: string, content: (RenderableByP | RenderableByP[])) => {
     if (prefix == "") return
 
       if (out.length > 0 && out[out.length - 1].prefix == prefix ) {
@@ -74,7 +75,8 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
       return
     }
     else {
-      let firstNonEm = stack.slice(0, nonEm).findLastIndex(ch => ch == '*') + 1
+      nonEm = nonEm || 0 // NonEm cannot be undefined else left would be 0 but the typescript didn't quite  get that
+      const firstNonEm = stack.slice(0, nonEm).findLastIndex(ch => ch == '*') + 1
       let content = stack.slice(firstNonEm, nonEm + 1).join('')
       console.log("em", left, right, stack.slice(firstNonEm))
       stack = stack.slice(0, firstNonEm - left)
@@ -84,7 +86,7 @@ export function interpretMarkdown({ content }: { content: string }): Content[] {
     }
   }
 
-  for (let c of content) {
+  for (const c of content) {
     switch (c) {
       case '\n':
         if (stack[0] == '#') handleHeading()
@@ -139,13 +141,12 @@ function findPrecedence(topLevel: string, prefix: string) {
 }
 
 
-function fixStrong(pStr: string | ReactNode) {
+function fixStrong(pStr: string | ReactNode): (RenderableByP | RenderableByP[]) {
   if (typeof pStr !== 'string') return pStr
   let s = pStr
   const out = []
   for (let i = s.indexOf("<strong>"); i >= 0; i = s.indexOf("<strong>")) {
     const j = s.indexOf("</strong>")
-    console.log("strong", s.slice(i+8,j))
     out.push(s.slice(0, i))
     out.push(<strong>{s.slice(i+8, j)}</strong>)
     s = s.slice(j+9)
@@ -163,11 +164,9 @@ function fixItalic(pStr: string) {
   const out = []
   for (let i = s.indexOf("<em>"); i >= 0; i = s.indexOf("<em>")) {
     const j = s.indexOf("</em>")
-    console.log("em", s.slice(i+4,j))
     out.push(s.slice(0, i))
     const si = fixStrong(s.slice(i+4, j))
-    console.log("em si", si)
-    if (si.length == 1) out.push(<em>{si[0]}</em>)
+    if (si && Array.isArray(si) && si.length == 1) out.push(<em>{si[0]}</em>)
     else out.push(s.slice(i+4, j))
     s = s.slice(j+5)
   }
@@ -186,13 +185,13 @@ function fixEm(pStrings: string[]): (string | ReactNode)[] {
 }
 
 
-function BlogElement({content}) {
+function BlogElement({content}: { content: Content[] }) {
   if (content.length == 0) return (<></>)
 
-  let elemStack: Content[][] = [[]]
+  const elemStack: Content[][] = [[]]
 
 
-  for (let elem of content) {
+  for (const elem of content) {
     const workingSet = elemStack[elemStack.length -1]
     if (workingSet.length == 0 && elem.prefix != 'br') workingSet.push(elem) // base case
     else if (workingSet[0].prefix == 'p') {
@@ -220,7 +219,7 @@ function BlogElement({content}) {
       case "#":
         return (
           <Section prev={true}>
-          <Heading heading={topLevel.content}>
+          <Heading heading={(topLevel.content as string[])}>
             <BlogElement content={elements.slice(1)}/>
           </Heading>
           </Section>
@@ -228,14 +227,14 @@ function BlogElement({content}) {
       case "##":
         return (
           <Section prev={true}>
-          <SubHeading subheading={topLevel.content}>
+          <SubHeading subheading={(topLevel.content as string[])}>
             <BlogElement content={elements.slice(1)}/>
           </SubHeading>
           </Section>
         )
       case ">":
         return (
-          <BlockQuote blockQuote={topLevel.content}/>
+          <BlockQuote blockQuote={(topLevel.content as string[])}/>
         )
       case "a":
         return (
@@ -245,7 +244,7 @@ function BlogElement({content}) {
             href={topLevel.href || "#"}
           >
             <>
-            {fixEm(topLevel.content)}
+            {fixEm((topLevel.content as string[]))}
           </>
           </Link>
         )
@@ -254,7 +253,7 @@ function BlogElement({content}) {
           <Paragraph>
             { elements.map((lm, idx) => {
                 if (lm.prefix == "p") {
-                  return fixEm(lm.content)
+                  return fixEm((lm.content as string[]))
                 }
                 else return (<BlogElement content={[lm]} key={idx}/>)
             }).flat() }
@@ -273,7 +272,7 @@ function BlogElement({content}) {
 // Subheadings always render after headings
 // paragraphs after headings/subheadings
 // blockquotes can render with paragraphs
-export function BlogPost({mdxFile}) {
+export function BlogPost({mdxFile}: { mdxFile: string }) {
   const content = getOnePost(mdxFile)
   const elements = interpretMarkdown(content)
 

@@ -11,9 +11,12 @@ import {
   BreadcrumbSeparator,
   BreadcrumbLink
 } from "@/components/ui/breadcrumb"
-import { Button } from './ui/button'
 
-function crumbwiper(accumulator, crumb){
+type Crumb = {
+  name: string,
+  link?: string }
+
+function crumbwiper(accumulator: Crumb[], crumb: string){
   if (accumulator.length == 0) {
     accumulator.push({
       name: crumb,
@@ -29,14 +32,14 @@ function crumbwiper(accumulator, crumb){
   return accumulator
 }
 
-function hackNSlash(acc, val) {
+function hackNSlash(acc: Crumb[], val: Crumb) {
   if (acc.length == 0) acc.push({name: "root", link: "/"})
   else acc.push({name: val.link + "separator"})
   acc.push(val)
   return acc
 }
 
-function crumblingMyLife({link, name}) {
+function crumblingMyLife({link, name}: Crumb) {
   if (!link) {
     return (
       <BreadcrumbSeparator key={name}>
@@ -66,7 +69,7 @@ function crumblingMyLife({link, name}) {
 
 export function BreadCrumbsFromPath() {
   const pathname = usePathname()
-  const [breadcrumbs, setCrumbs] = useState([])
+  const [breadcrumbs, setCrumbs] = useState<Crumb[]>([])
   useEffect( () => {
     const c = pathname
       .split('/')

@@ -2,111 +2,111 @@
 
 import * as React from "react"
 import {
-  ArrowDown,
-  ArrowUp,
-  Bell,
-  Copy,
-  CornerUpLeft,
-  CornerUpRight,
-  FileText,
-  GalleryVerticalEnd,
-  LineChart,
-  MoreHorizontal,
-  Settings2,
-  Trash,
-  Trash2,
+//  ArrowDown,
+//  ArrowUp,
+//  Bell,
+//  Copy,
+//  CornerUpLeft,
+//  CornerUpRight,
+//  FileText,
+//  GalleryVerticalEnd,
+//  LineChart,
+////  MoreHorizontal,
+//  Settings2,
+//  Trash,
+//  Trash2,
   Rss,
 } from "lucide-react"
 import {
   MoonIcon,
   SunIcon,
-  Link2Icon,
+//  Link2Icon,
   GitHubLogoIcon
 } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
+//import {
+//  Popover,
+//  PopoverContent,
+//  PopoverTrigger,
+//} from "@/components/ui/popover"
+//import {
+//  Sidebar,
+//  SidebarContent,
+//  SidebarGroup,
+//  SidebarGroupContent,
+//  SidebarMenu,
+//  SidebarMenuButton,
+//  SidebarMenuItem,
+//} from "@/components/ui/sidebar"
 import Link from "next/link"
 
-const data = [
-  [
-  {
-    label: "Customize Page",
-    icon: Settings2,
-  },
-  {
-    label: "Turn into wiki",
-    icon: FileText,
-  },
-  ],
-  [
-  {
-    label: "Copy Link",
-    icon: Link2Icon,
-  },
-  {
-    label: "Duplicate",
-    icon: Copy,
-  },
-  {
-    label: "Move to",
-    icon: CornerUpRight,
-  },
-  {
-    label: "Move to Trash",
-    icon: Trash2,
-  },
-  ],
-  [
-  {
-    label: "Undo",
-    icon: CornerUpLeft,
-  },
-  {
-    label: "View analytics",
-    icon: LineChart,
-  },
-  {
-    label: "Version History",
-    icon: GalleryVerticalEnd,
-  },
-  {
-    label: "Show delete pages",
-    icon: Trash,
-  },
-  {
-    label: "Notifications",
-    icon: Bell,
-  },
-  ],
-  [
-  {
-    label: "Import",
-    icon: ArrowUp,
-  },
-  {
-    label: "Export",
-    icon: ArrowDown,
-  },
-  ],
-]
+//const data = [
+//  [
+//  {
+//    label: "Customize Page",
+//    icon: Settings2,
+//  },
+//  {
+//    label: "Turn into wiki",
+//    icon: FileText,
+//  },
+//  ],
+//  [
+//  {
+//    label: "Copy Link",
+//    icon: Link2Icon,
+//  },
+//  {
+//    label: "Duplicate",
+//    icon: Copy,
+//  },
+//  {
+//    label: "Move to",
+//    icon: CornerUpRight,
+//  },
+//  {
+//    label: "Move to Trash",
+//    icon: Trash2,
+//  },
+//  ],
+//  [
+//  {
+//    label: "Undo",
+//    icon: CornerUpLeft,
+//  },
+//  {
+//    label: "View analytics",
+//    icon: LineChart,
+//  },
+//  {
+//    label: "Version History",
+//    icon: GalleryVerticalEnd,
+//  },
+//  {
+//    label: "Show delete pages",
+//    icon: Trash,
+//  },
+//  {
+//    label: "Notifications",
+//    icon: Bell,
+//  },
+//  ],
+//  [
+//  {
+//    label: "Import",
+//    icon: ArrowUp,
+//  },
+//  {
+//    label: "Export",
+//    icon: ArrowDown,
+//  },
+//  ],
+//]
 
 export function NavActions(){
-  const [isOpen, setIsOpen] = React.useState(false)
+  //const [isOpen, setIsOpen] = React.useState(false)
 
   const { setTheme, theme } = useTheme()
   const toggleTheme = () => {

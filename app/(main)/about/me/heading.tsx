@@ -4,7 +4,7 @@
 import { useTypewriter } from "@/components/effects/typewriter"
 import { useState, useEffect } from "react"
 
-export const ActiveHeader: React.FC = ({ callback }) => {
+export const ActiveHeader = ({ callback }: { callback: () => void }) => {
   const titles = ["About me", "Akshay Caleb Gollapalli"];
   const subtitles = ["Call me Caleb", "... unless you're my mom"];
 

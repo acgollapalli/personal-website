@@ -2,10 +2,16 @@
 
 import { useTypewriter } from "@/components/effects/typewriter";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
-export function ActiveSection({content, callback}) {
-  const { call, response, titleDelay, subTitleDelay } = content
+type SectionContent = {
+    call: string[]
+    response: string[]
+    fill: string[]
+}
+
+export function ActiveSection({content, callback}:
+                              { content: SectionContent, callback: () => void }) {
+  const { call, response } = content
   const { text: titleText, isDone: titleDone, showCursor: showTitleCursor } = useTypewriter(call, {
     typingSpeed: 50,
     deletingSpeed: 60,
@@ -55,7 +61,7 @@ export function ActiveSection({content, callback}) {
     )
 }
 
-export function StaticSection({content}) {
+export function StaticSection({content}: { content: SectionContent }) {
   const { call, response } = content
     return (
         <div className={"p-2"}>
@@ -73,12 +79,13 @@ export function StaticSection({content}) {
     )
 }
 
-export function Section({content,callback}) {
+export function Section({content,callback}:
+                        { content: SectionContent, callback: (b: boolean) => void }) {
     const { fill } = content
 
     const [isActive, setActive] = useState(true)
     useEffect(() => {
-        const timer = setTimeout(callback(!isActive), 3000)
+        const timer = setTimeout(() => callback(!isActive), 3000)
         return () => clearTimeout(timer)
     }, [isActive]) // pass the isActive back
 

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 type TypewriterOptions = {
   typingSpeed?: number
@@ -9,7 +9,7 @@ type TypewriterOptions = {
   loop?: boolean,
   keepLastPhrase?: boolean,
   startDelay?: number,
-  pauseOnLastPhrase: boolean,
+  pauseOnLastPhrase?: boolean,
 }
 
 type TypewriterReturn = {
