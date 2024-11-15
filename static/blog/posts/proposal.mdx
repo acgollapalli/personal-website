@@ -1,0 +1,107 @@
+---
+title: 'Proposal for a Web-Wide World'
+publishedAt: '2024-11-14'
+summary: 'Interconnected worlds in Interactive HyperMedia'
+---
+
+# An Invitation
+Let me invite you to consider a problem from multiple angles.
+
+## An Average Perspective
+You, the humble player of video games, would like to try something new. It is free to play and there is no reason not to give it a shot. You can download it and run it immediately, and you can play it immediately.
+
+Except it's not immediate. You have to allocate space on your drive, probably by uninstalling something else. You have to wait for shaders to precompile, and you have to restart the game in order to deal with an update immediately after you install it. You have to wait for your game to load up again after the install, and tell it you don't want to open it in safe-mode after it crashed on update the update. When you load into your 5v5 match, you are getting shot around corners, by people who definitely *were not there* but, "well the game is free."
+
+## And From the Other Side of the Release Notes	
+You as a game developer have worked tirelessly to create this experience. You *want* it to be *good*. 
+
+*Your game* is worth money, and it's worth being paid for. But you offer it for free, so players can play it. And you want LOTS of players to play it, so that some of them pay for stuff in your game. But every install has a cost to the player, a cost of install, a cost of update, a cost of entry that isn't financial, but based on raw resources. And every time they *delete* your game, every time they rage quit, the cost of them coming back is the same as the cost of entry. And that cost is the cost of all things: time and space. Do they have room on their hard drive? Do they want to wait for your game to download again? Do they want to deal with the cost of entry, so they can return to your game loop and buy your battle pass and invest in your ecosystem? Your monetization depends on users entering your game loop quickly, getting hooked, and staying hooked. Your company, your revenue, the success of your game, it all depends on making it easy for players to get into your game loop. Friction is your enemy.
+
+## The Gaming-Wide World
+You as a developer, as an enthusiast, or as a player don't just want as many people playing your game as possible, you want as many people playing games-in-general as possible. You want to make it easy for people to try out the next game you make, because this game isn't the only game you're ever going to make. And this isn't the only game that your publisher or your company is going to make. And it's not the only game you're ever going to play. You want people to follow the thread from one game to the next, and a launcher that downloads seven games at once isn't going to cut it (sorry Call of Duty). You want them to be able to come from one game to another, from one experience to another, all in one smooth experience, because that's no longer a unitary game, but a gaming ecosystem--a Web-Wide World.
+
+# The Proposal
+
+I propose that game-developers use a shared protocol and generally compatible runtime to facilitate zero-install gameplay with cross-server linking and seamless traversal between persistent, interactive experiences.
+
+I believe everything that I list in this document is possible today, and that it is possible to implement every suggestion I make with currently available implementations and libraries.
+
+## How it would work
+
+The first and, perhaps, most key component of this is that games would have to primarily run server-side, with only the player inputs being sent server-side. Client-side logic would have to be primarily related to display and would, beyond some basic display logic, have to relate to assets which need to be drawn on the screen. It is important to note here that I am not proposing server-side rendering. I am proposing client-side rendering for networked games. I am however proposing the removal of client-side simulation, not as a matter of protocol, but of practice.
+
+Rendering would be done on a shared, cross-platform, client-side runtime and interoperate with the server based on a shared protocol.
+
+Servers would need to send a list of entities and positions, to be drawn on the screen for every frame, from the players perspective. These would include both in-game assets and UI components. How exactly this is done should be left up to the implementer of the individual game.
+
+Servers would need to send asset prefetch manifests with a list of assets and levels of detail (or variable geometry or however you want to handle it). These assets would need to be in a CDN, and servers would need to be updating the client side based on where the client is looking and where they are in the world.
+
+Servers would need to run on an edge network to be able to provide the required low-latency and low-jitter experience. 
+
+Players would have a "home" server, and an address like gamertag@home-world.gg. Their server would mediate authenticatication with any other servers that they might wish to join, and player state from the world being visited would be cached and loaded from the home world by shared protocol. Players should be able to export their data in an easily parseable and shared format, perhaps sqlite, and transition to another server if they so wish.
+
+Worlds should be able to interoperate and honor one another's assets, items, and abilties. This may be achieved via cryptographic keys shared between worlds, which allow home-servers to share the compatible save data from other servers that have authorized the use of that information. Otherwise, home-worlds should only share the data relevant to the calling world. Save Data should be PKI encrypted.
+
+# Enabling Technologies
+
+## Basic Connectivity
+I believe the Quic Protocol can be leveraged effectively here. The datagram extension can be used to send unreliable UDP packets for input data and game data, while the packet protection schemes can be used for encryption. Ordered streams can be used for asset streaming as well. In the browser, the WebTransport scheme can be used, to facilitate real-time data for input and positions, using unreliable datagrams, while bidirectional streams are used for assets and manifests. Because QUIC routes through proxies via Destination Connection IDs (see: [rfc9000.5.2.3](https://datatracker.ietf.org/doc/html/rfc9000#name-operations-on-connections)), we can also use this as a natural means of packet routing and load balancing for large, partitioned worlds on the edge. Because of the connection migration capabilities allowed in the protocol, users on mobile platforms should be able to maintain their connection state in the event of natwork transition (such as from WiFi to 5G).
+
+## Runtime
+WebAssembly with targets of either the browser/WebGPU or WASI/wgpu seems to be the best runtime to start with.
+
+The browser presents a great opportunity for accessibility and interactivity. It is inherently cross platform, universal and well (if verbosely) specified. IndexedDB could be used for an asset cache, storing assets as blobs. Each game would have to manage unloading assets which are no longer necessary as well as loading in new ones in. However, the browser is also a large piece of software weighed down by a half-century of web-standards and backwards compatibility.
+
+Building a browser specifically for interconnected, interactive games would provide new opportunities, and might be simpler in the long run. It would remove the dependency on the browser for implementing protocols and device support. Seeing as WebGPU is still unavailable by default in the mainline versions of Firefox and Safari, as well as Safari on mobile, and WebTransport is unavailable in Safari, the relatively uneven pace of browser development and distribution by OS's may make it a wise idea to seek to implement a cross-platform browser project specifically for interconnected, graphical wasm applications. A usage-specific browser would also allow for a friendlier asset cache with some automatic management of assets that are no longer needed. However, there would be more initial concerns with sandboxing and general security.
+
+## Transitional Connection Multiplexing and World Traversal
+For seamless transition between worlds a connection handoff protocol is needed. The giving server, which is passing off the player to the receiving server, needs to either contact, or otherwise mainain persistent communication with the receiving server. The server then needs to inform the client who is about to transition that the client needs to initiate a new QUIC connection with the new server. After the client has established the connection with the receiving server, the receiving server should then notify the giving server of the completion of the handoff, and the giving server should cleanup any player state and synchronize that back to the player's home server.
+
+A simple transactional relationship, such as an HTTP request, would most likely be the simplest to implement, however, I believe a persistent connection is more beneficial to player experience, as it would allow client previewing of the other world which they are about to enter, via preloading of assets and client-side wasm and also simplify handoff mechanics via a bidirectional stream.
+
+Please note, I do not believe world previewing should be in the initial version of the protocol, as I believe there are issues to be resolved with rendering from multiple wasm bundles and the precedence of how each world wants its objects rendered.
+
+# Expected Objections (and other concerns)
+## But what about latency?
+Latencies in networks have gotten sufficiently low that they are indistinguishable from hardware latency. Dan Luu has shown that the amount of latency in a keyboard can be [in excess of 35 ms](https://danluu.com/keyboard-latency/), and Riot Direct and Network Next are showing that network pings can be brought into the neighborhood of 10-15ms. I believe it is entirely possible to send player data to the server and have a returned interaction be available to draw to the screen within 33 ms (30 frames/sec), with edge networks and efficient game servers. I think that 60 hz and 144 hz are possible as well, although perhaps with some buffering. In 2017 John Carmack said that the average time between moving a control stick and something happening on screen in an average game was ~100ms. I think with some optimization, we can fit a network round trip in there and still have an equally responsive or more responsive experience.
+
+## What about bandwidth?
+The problem of loading assets from cdn is, in essence, a higher latency, and more bandwidth limited problem of the open-world developer trying to ensure that they load their game from disk, on demand, in accordance with player movement speed. However, I think that the video streaming companies have demonstrated that it is possible to deliver and stream lots of data very quickly to lots of people. I believe that this is a tractable problem.
+
+## What about jitter?
+Up to the implementation and the infrastructure companies essentially. With sufficiently reliable and low-latency networks, and sufficiently high frequencies on both client and server, jitter should likely be less of a concern.
+
+## How would games be implemented under this scheme? Could they be translated easily?
+They would be implemented however you please. Beyond supporting the common protocols, there are no limits, beyond the obvious ones of the wasi and wgpu apis.
+As for translation, I think this is harder. You'd really want your game to have a clean division between your server side logic, client side logic, and asset usage. A lot of existing games aren't really architected to work this way. You need to almost think about this as a new platform. You wouldn't simply be building for a new target, but porting for a new platform with new constraints. 
+
+## What about anti-cheat?
+It would have to be server-side. Client-side anti-cheat would be impossible under this architecture.
+
+## How would this effect smaller publishers?
+Positively, I suspect. You'd have more people trying out and playing your game, and you could transition them to other games that they might like (that you publish) in an organic way. You could also set up a subscription service for all your games with ease.
+
+## Could I have my own world?
+Not really an objection, but I think that individuals could certainly have their own home-worlds in the same way that individuals have their own personal websites. I sincerely hope to enable you to have a castle of your own.
+
+# What needs to happen in order for this to exist?
+
+## Proof of Concept
+First, there needs to be a proof of concept. I am working on this.
+
+## Infrastructure
+This scheme doesn't really work without an edge network, which doesn't really exist for hosting games. I am building one, with [SkyShatter](https://skyshatter.gg).
+
+## Standards and Agreement
+If there is interest in this from the community, I think we should come to agreement on a standard for the following action items:
++ Shared Connection Protocol
++ Hand-off mechanics
++ Home-server responsibility
++ Runtime and the possibility of an independent wasm-only browser.
+
+I do think that web standards are useful. If there is interest in this, I think doing it through the Web Standards Committee would be the right way to do this. However, I don't believe we should be beholden to them.
+
+# And a Parting Word
+This is a proposal for a very different kind of web, one based not on hypertext, but interactive media. I know that I prefaced it based primarily on games. That is because I believe in games. I believe in their power to do things that no other medium has ever done before, and to be the culmination of what we can do with computing.
+
+Please find me on [X/Twitter](https://x.com/DrillThruTheSky) or [email me](mailto:caleb@skyshatter.gg) if you find this interesting and would like to comment.

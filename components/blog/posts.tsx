@@ -6,7 +6,7 @@ export function BlogPosts() {
 
   console.log(allBlogs.length)
   return (
-    <div>
+    <div className="mt-6">
       {allBlogs
         .sort((a, b) => {
           if (
@@ -50,7 +50,7 @@ export function StaticBlogPosts() {
 
 
   return (
-    <div>
+    <div className="mt-6">
       {allBlogs
         .sort((a, b) => {
           if (
@@ -61,10 +61,10 @@ export function StaticBlogPosts() {
           return 1
         })
         .map((post) => (
-            <div className="w-full flex flex-column md:flex-row justify-between" key={`static\${post.slug}`}>
+          <div className="w-full flex flex-column md:flex-row justify-between" key={`static/${post.slug}`}>
                 <Link
-                    key={`static\${post.slug}`}
-                    href={`/blog/static${post.slug}`}
+                  key={`static/${post.slug}`}
+                  href={`/blog/static/${post.slug}`}
                 >
                     <p className="font-semibold text-neutral-900 dark:text-neutral-100 tracking-tight">
                         {post.metadata.title}

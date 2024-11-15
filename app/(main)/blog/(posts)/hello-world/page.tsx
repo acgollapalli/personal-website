@@ -1,6 +1,8 @@
 import { Title } from "./title"
 import { BlogPost } from "./mdx"
 import { Section } from "./section"
+import Link from 'next/link'
+import { formatDate } from '@/lib/blog'
 
 
 export const metadata = {
@@ -27,6 +29,17 @@ export default function Page () {
   return (
     <div className="max-w-prose pb-6">
       <Title title={title} subtitle={subtitle}/>
+		<span className="flex justify-between items-center w-full">
+		  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+			{formatDate("10-24-2024")}
+		  </p>
+		  <Link
+			className="text-sm text-neutral-600 dark:text-neutral-400 underline underline-offset-4"
+			href={`/blog/static/hello-world`}
+		  >
+			 Static Version (for people who hate fun)
+		  </Link>
+		</span>
       <BlogPost mdxFile={"hello-world"}/>
       <Section prev={true}>
         <Title title={["Hello, World!"]}/>

@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/components/blog/mdx'
 import { formatDate, getBlogPosts } from '@/lib/blog'
 import { baseUrl } from '@/lib/constants'
+import { Title, Subtitle } from '@/components/typography'
+import Link from 'next/link'
 
 
 // This is some nonsense
@@ -85,20 +87,31 @@ export default async function blog({ params }: PageProps) {
             url: `${baseUrl}/blog/${post.slug}`,
             author: {
               '@type': 'person',
-              name: 'my portfolio',
+              name: 'Akshay Caleb Gollapalli',
             },
           }),
         }}
       />
-    <div className="max-w-prose p-8">
+    <div className="max-w-prose px-4">
       <main >
-      <h1 className="title font-semibold text-2xl tracking-tighter">
+      <Title>
         {post.metadata.title}
-      </h1>
+      </Title>
+      <Subtitle>
+        {post.metadata.summary}
+      </Subtitle>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
+<span className="flex justify-between items-center w-full">
+		  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+			{formatDate(post.metadata.publishedAt)}
+		  </p>
+		  <Link
+			className="text-sm text-neutral-600 dark:text-neutral-400 underline underline-offset-4"
+			href={`/blog/${post.slug}`}
+		  >
+			 Animated Version (for people who like fun)
+		  </Link>
+</span>
       </div>
       <article className="prose">
         <CustomMDX source={post.content} />
