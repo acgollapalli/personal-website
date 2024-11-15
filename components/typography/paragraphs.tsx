@@ -1,7 +1,11 @@
 import type { FC } from 'react'
 import Link from 'next/link'
 
-export function P ({children}) : FC {
+interface TypeographyProps {
+  children: React.ReactNode;
+}
+
+export const P: FC<TypeographyProps> = ({children}) =>  {
   return (
     <p className="leading-7 mt-4">
       {children}
@@ -9,7 +13,7 @@ export function P ({children}) : FC {
   )
 }
 
-export function BlockQuote ({children}) : FC {
+export const BlockQuote: FC<TypeographyProps> = ({children}) =>  {
   return (
     <blockquote className="mt-6 border-l-2 pl-6 italic font-mono">
       {children}
@@ -17,15 +21,15 @@ export function BlockQuote ({children}) : FC {
   )
 }
 
-export function Table ({data}) : FC {
-  const headers = data.headers.map((header, index) => (
+export const Table: FC<any> = ({data}) => {
+  const headers = data.headers.map((header: any, index:number) => (
     <th className="border px-4 py-2 text-left font-bold [&>[align=center]]:text-center [&>[align=right]]:text-right" key={index}>
       {header}
     </th>))
   
-  const rows = data.rows.map((row, index) => (
+  const rows = data.rows.map((row:any, index:number) => (
 	<tr className="m-0 border-t p-0 even:bg-muted" key={index}>
-	  {row.map((cell, cellIndex) => (
+	  {row.map((cell:any, cellIndex:number) => (
 		<td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right" key={cellIndex}>
 		  {cell}
 		</td>))}
@@ -48,7 +52,7 @@ export function Table ({data}) : FC {
 }
 
 
-export function List ({children}) : FC {
+export const List: FC<TypeographyProps> = ({children}) =>{
   return (
     <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
       {children}
@@ -56,11 +60,12 @@ export function List ({children}) : FC {
   )
 }
 
-export function A(props: {
+interface AProps {
   href: string,
   children: React.ReactNode,
-  className: string
-}): React.FC {
+}
+
+export const A: React.FC<AProps> = (props ) => {
   const href = props.href
 
   if (href.startsWith('/')) {
@@ -71,9 +76,10 @@ export function A(props: {
     )
   }
 
-  if (href.startsWith('#')) {
-    return <a {...props} />
-  }
+  else if (href.startsWith('#')) {
+    return ( <a {...props} />)
+  } else {
 
-  return <a target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4" {...props} />
+	return (<a target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4" {...props} />)
+  }
 }

@@ -1,13 +1,18 @@
 'use client'
 
-import { useEffect, useMemo, useState, type FC } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTheme } from "next-themes"
 
 // This is bad. You should write YOUR OWN animations, so you can learn and stuff. But NOOOO, you want to sleep. So you pull in a library, without even trying.
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
+import { loadSlim, } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
 
-export const ParticleEffect = ({children}): FC => {
+interface ParticleEffectProps {
+  children: React.ReactNode;
+}
+
+
+export const ParticleEffect: React.FC<ParticleEffectProps> = ({children}) => {
   const [init, setInit] = useState(false);
 
   // this should be run only once per application lifetime
@@ -25,8 +30,8 @@ export const ParticleEffect = ({children}): FC => {
     });
   }, []);
 
-  const particlesLoaded = (container) => {
-    //console.log(container);
+  const particlesLoaded = async (container: any) =>  {
+	console.log(container);
   };
 
 
@@ -73,11 +78,11 @@ export const ParticleEffect = ({children}): FC => {
           width: 1,
         },
         move: {
-          direction: "none",
+          direction: "none" as any,
           enable: true,
           outModes: {
             default: "bounce",
-          },
+          } as any,
           random: false,
           speed: 4,
           straight: false,
@@ -103,21 +108,18 @@ export const ParticleEffect = ({children}): FC => {
     [theme],
   );
 
-  if (init) {
     return (
 	  <div>
+		{ init && (
 		<Particles
           id="tsparticles"
 		  className="z-0"
         particlesLoaded={particlesLoaded}
         options={options}
       >
-	  </Particles>
+		</Particles>) }
 
 		 {children}
 	  </div>
     );
-  }
-
-  return <div>{children}</div>;
 };

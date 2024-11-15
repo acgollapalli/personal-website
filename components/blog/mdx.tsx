@@ -1,8 +1,10 @@
-import Link from 'next/link'
+/* eslint-disable */
+
+//import Link from 'next/link'
 //import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 //import { highlight } from 'sugar-high'
-import { H1, H2, H3, H4, P, A, BlockQuote, Table, List } from "@/components/typography"
+import { H3, H4, P, A, BlockQuote, Table, List } from "@/components/typography"
 import React from 'react'
 
 // Whoever wrote this file in the blog starter
@@ -28,7 +30,7 @@ import React from 'react'
 //    .replace(/\-\-+/g, '-') // Replace multiple - with single -
 //}
 
-const components = {
+const components:any = {
   h1: H3,
   h2: H4,
   h3: H4,
@@ -39,6 +41,7 @@ const components = {
   ul: List,
 }
 
+/* eslint-disable */
 export function CustomMDX(props: {source: string}) {
   return (
     <MDXRemote

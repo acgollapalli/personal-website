@@ -1,6 +1,10 @@
 import type { FC } from 'react'
 
-export function H1({children}): FC {
+interface TypeographyProps {
+  children: React.ReactNode;
+}
+
+export const H1 : FC<TypeographyProps> = ({children}) =>  {
   return (
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
       {children}
@@ -8,7 +12,7 @@ export function H1({children}): FC {
   )
 }
 
-export function H2 ({children}) : FC {
+export const H2 : FC<TypeographyProps> = ({children}) =>  {
   return (
     <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
 	{children}
@@ -16,7 +20,7 @@ export function H2 ({children}) : FC {
   )
 }
 
-export function H3 ({children}) : FC {
+export const H3 : FC<TypeographyProps> = ({children}) => {
   return (
     <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight font-mono mt-8 first:mt-0">
       {children}
@@ -24,7 +28,7 @@ export function H3 ({children}) : FC {
   )
 }
 
-export function H4 ({children}) : FC {
+export const H4 : FC<TypeographyProps> = ({children}) => {
   return (
     <h4 className="scroll-m-20 text-xl font-semibold tracking-tight font-mono mt-8 first:mt-0 text-gray-400">
       {children}
@@ -32,7 +36,7 @@ export function H4 ({children}) : FC {
   )
 }
 
-export function Title({children}): FC {
+export const Title : FC<TypeographyProps> = ({children}) =>  {
   return (
 	<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl font-mono">
 	  {children}
@@ -40,7 +44,7 @@ export function Title({children}): FC {
   )
 }
 
-export function Subtitle({children}): FC {
+export const Subtitle : FC<TypeographyProps> = ({children}) =>  {
   return (
     <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-mono text-gray-500 transition-opacity duration-500 ease-in-out">
 	  {children}
