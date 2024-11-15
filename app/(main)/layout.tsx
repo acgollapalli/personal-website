@@ -10,7 +10,7 @@ export default function Layout({
         <MainSidebar>
           {children}
         </MainSidebar>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center pt-8">
         <h4>© 2024 Akshay Caleb Gollapalli, All rights reserved.</h4>
       </footer>
       </>

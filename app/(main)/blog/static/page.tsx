@@ -7,8 +7,8 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <section className="p-16 sm:min-w-[576px] min-w-full">
-       <div className="relative max-w-prose mx-auto p-4">
+    <section className="p-8 lg:min-w-[672px] sm:min-w-[576px] min-w-full">
+       <div className="relative mx-auto p-4">
       <div className="space-y-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
           *the Wizard Log*

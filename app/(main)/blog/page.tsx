@@ -9,7 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <div>
-      <section className="p-16 lg:min-w-[672px] sm:min-w-[576px] min-w-full">
+      <section className="p-8 lg:min-w-[672px] sm:min-w-[576px] min-w-full">
         <BlogHeader/>
         <BlogPosts />
       </section>

@@ -23,7 +23,7 @@ export const BlogHeader: React.FC = () => {
   });
 
   return (
-    <div className="relative max-w-prose mx-auto p-4">
+    <div className="relative mx-auto">
       <div className="space-y-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold font-mono tracking-tight">
           <span className="relative">

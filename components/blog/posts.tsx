@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from '@/lib/blog'
 
+// FIXME: Convert the static/animated links to grid items
+
 export function BlogPosts() {
   const allBlogs = getBlogPosts()
 
@@ -27,6 +29,7 @@ export function BlogPosts() {
                         {post.metadata.title}
                     </p>
                 </Link>
+			  {/*
                 <Link
                     key={`static\${post.slug}`}
                     href={`/blog/static/${post.slug}`}
@@ -35,7 +38,8 @@ export function BlogPosts() {
                         Static Version
                     </p>
                 </Link>
-                <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
+				*/}
+                <p className="text-neutral-600 dark:text-neutral-400 tabular-nums">
                     {formatDate(post.metadata.publishedAt, false)}
                 </p>
             </div>
@@ -70,6 +74,7 @@ export function StaticBlogPosts() {
                         {post.metadata.title}
                     </p>
                 </Link>
+			{/*
                 <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
@@ -78,7 +83,8 @@ export function StaticBlogPosts() {
                         Animated Version
                     </p>
                 </Link>
-                <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
+			  */}
+                <p className="text-neutral-600 dark:text-neutral-400 tabular-nums">
                     {formatDate(post.metadata.publishedAt, false)}
                 </p>
             </div>
